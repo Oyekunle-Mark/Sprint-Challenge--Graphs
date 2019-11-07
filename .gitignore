@@ -126,3 +126,6 @@ dmypy.json
 
 # vs code
 .vscode
+
+# generated map
+map.txt
