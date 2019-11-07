@@ -1,6 +1,7 @@
 from room import Room
 from player import Player
 from world import World
+from util import Stack
 
 import random
 
@@ -27,6 +28,45 @@ player = Player("Name", world.startingRoom)
 
 # FILL THIS IN
 traversalPath = []
+
+
+
+
+
+
+## IMPLEMENTATION OF THE DFT PATH
+# create the stack
+s = Stack()
+# push a list holding the starting vertex id
+s.push([starting_vertex_id])
+# created an empty visited set
+visited = set()
+# while the queue is not empty
+while s.size() > 0:
+    # pop to the path
+    path = s.pop()
+    # set a vert to the last item in the path
+    vert = path[-1]
+    # if vert is not in visited
+    if vert not in visited:
+        # add vert to visited set
+        visited.add(vert)
+        # loop over next vert in vertices at the index of vert
+        for next_vert in self.vertices[vert]:
+            # set a new path equal to a new list of the path (copy)
+            new_path = list(path)
+            # append next vert to new path
+            new_path.append(next_vert)
+            # push the new path
+            s.push(new_path)
+
+
+
+
+
+
+
+
 
 
 # TRAVERSAL TEST
