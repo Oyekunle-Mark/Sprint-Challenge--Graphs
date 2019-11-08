@@ -71,6 +71,8 @@ visited[current_room] = build_exits()
 # get exits of the current room
 exits = roomGraph[current_room][1]
 
+
+# THIS PATH USES DFT TO TRAVERSE THE MAP
 # create a stack
 s = Stack()
 
@@ -116,6 +118,7 @@ while s.size() > 0:
         new_path.append(next_direction)
         s.push(new_path)
 
+    # THIS PATH ATTEMPTS TO RETRACE TO WHERE THERE IS AN UNEXPLORED DIRECTION
     if s.size() == 0 and len(visited) < len(roomGraph):
         # attempt to play back the direction till you get to that room
         backwards_direction = traversalPath[:-1]
