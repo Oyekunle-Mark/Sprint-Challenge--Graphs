@@ -44,11 +44,29 @@ def build_exits():
 def find_unexplored_direction(mapped_exits):
     exits = player.currentRoom.getExits()
 
-    for exit in exits:
-        if mapped_exits[exit] == "?":
-            return exit
+    # random.shuffle(exits)
+    # print("*******", exits)
+    # for exit in sorted(exits, reverse=True):
+    #     if mapped_exits[exit] == "?":
+    #         return exit
 
-    return None
+
+    # for exit in sorted(exits):
+    #     if mapped_exits[exit] == "?":
+    #         return exit
+
+    # for exit in exits:
+    #     if mapped_exits[exit] == "?":
+    #         return exit
+
+    # random.shuffle(exits)
+
+    # for exit in exits:
+    #     if mapped_exits[exit] == "?":
+    #         return exit
+
+    # return None
+    return random.choice(exits)
 
 
 world.loadGraph(roomGraph)
@@ -143,6 +161,8 @@ while s.size() > 0 and len(visited) < len(roomGraph):
                 new_path.append(next_d)
                 s.push(new_path)
 
+            # if len(backwards_direction) == 0:
+            #     continue
             d = backwards_direction.pop()
 
 
