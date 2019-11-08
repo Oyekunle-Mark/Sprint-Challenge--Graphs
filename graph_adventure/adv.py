@@ -55,7 +55,7 @@ world.loadGraph(roomGraph)
 world.printRooms()
 player = Player("Name", world.startingRoom)
 
-print("*******", player.currentRoom.id)
+
 # FILL THIS IN
 traversalPath = []
 
@@ -78,16 +78,12 @@ s = Stack()
 s.push([find_unexplored_direction(exits)])
 
 
-path = []
-
-
-
 # while the queue is not empty
 while s.size() > 0:
     # pop to the path
-    path = s.pop()
+    traversalPath = s.pop()
     # set a direction to the last item in the path
-    direction = path[-1]
+    direction = traversalPath[-1]
 
     # move the player to that direction
     player.travel(direction)
@@ -115,7 +111,7 @@ while s.size() > 0:
 
     if next_direction is not None:
         # add it to path
-        new_path = list(path)
+        new_path = list(traversalPath)
         new_path.append(next_direction)
         s.push(new_path)
 
@@ -129,8 +125,10 @@ while s.size() > 0:
 # return None
 # return None
 
-print("**********", path)
+# remove the leading None
+traversalPath = traversalPath[1:]
 
+print("**********", traversalPath)
 
 # TRAVERSAL TEST
 visited_rooms = set()
