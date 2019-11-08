@@ -117,18 +117,46 @@ while s.size() > 0:
         s.push(new_path)
 
     if s.size() == 0 and len(visited) < len(roomGraph):
-        next_direction = find_unexplored_direction(visited[current_room])
-        print("\n********** Direction:", next_direction)
+        # attempt to play back the direction till you get to that room
+        backwards_direction = traversalPath[:-1]
 
-    # # for next_direction in self.vertices[vert]:
-    #     # set a new path equal to a new list of the path (copy)
-    #     new_path = list(path)
-    #     # append next vert to new path
-    #     new_path.append(next_vert)
-    #     # push the new path
-    #     s.push(new_path)
-# return None
-# return None
+        d = backwards_direction.pop()
+
+        player.travel(d)
+
+        traversalPath.append(d)
+
+        # get current room
+        current_room = player.currentRoom.id
+
+        next_d = find_unexplored_direction(visited[current_room])
+
+        if next_d:
+            # add it to path
+            new_path = list(traversalPath)
+            new_path.append(next_d)
+            s.push(new_path)
+            continue
+
+        while next_d is None:
+            d = backwards_direction.pop()
+
+            player.travel(d)
+
+            traversalPath.append(d)
+
+            # get current room
+            current_room = player.currentRoom.id
+
+            next_d = find_unexplored_direction(visited[current_room])
+
+            if next_d:
+                # add it to path
+                new_path = list(traversalPath)
+                new_path.append(next_d)
+                s.push(new_path)
+                break
+
 
 # remove the leading None
 traversalPath = traversalPath[1:]
