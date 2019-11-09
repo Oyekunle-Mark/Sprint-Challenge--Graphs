@@ -56,7 +56,6 @@ def create_possible_direction(room_id):
 # create the exits of the current room in the room map
 create_possible_direction(current_room)
 
-
 # reverses the direction
 reverse_directions = {"n": "s", "s": "n", "e": "w", "w": "e"}
 
@@ -136,10 +135,12 @@ def bft_find_other_room(player):
                 # if unexplored, return the current room set
                 if room_map[last_room][exit] == '?':
                     return rooms
-                # otherwise add it to the room
+                # otherwise,
                 else:
+                    # add the exit direction to the path
                     new_path = list(rooms)
                     new_path.append(room_map[last_room][exit])
+                    # enqueue the new path
                     q.enqueue(new_path)
 
     # return None if no unexplored room is found
@@ -185,7 +186,8 @@ while q.size() > 0:
     get_unexplored_room(player, q)
 
 
-print(room_map)
+print("\n******** Room map:", room_map)
+print("\n******** Traversal path:", traversalPath)
 
 
 # TRAVERSAL TEST
