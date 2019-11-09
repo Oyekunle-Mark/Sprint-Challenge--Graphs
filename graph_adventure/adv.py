@@ -42,6 +42,12 @@ room_map[current_room] = {}
 
 
 def create_possible_direction(room_id):
+    """Adds a room_id key in the room map dictionary and sets
+    it to ? in all possible directions
+
+    Arguments:
+        room_id {int} -- the players current room id
+    """
     # set the exits of current room to unknown
     for exit in player.currentRoom.getExits():
         room_map[room_id][exit] = "?"
@@ -55,7 +61,14 @@ create_possible_direction(current_room)
 reverse_directions = {"n": "s", "s": "n", "e": "w", "w": "e"}
 
 
-def get_unexplored_room(player, roomQueue):
+def get_unexplored_room(player, queue):
+    """Finds the next unexplored room in the players current room
+    and adds it to the queue.
+
+    Arguments:
+        player {class} -- instance of the Player class
+        queue {class} -- instance of the Queue class
+    """
     # get direction available in the player's current room
     current_room = room_map[player.currentRoom.id]
     # will hold the unexplored_paths
@@ -71,11 +84,11 @@ def get_unexplored_room(player, roomQueue):
     # if there are unexplored rooms here
     if unexplored_paths:
         # add the first room to the queue
-        roomQueue.enqueue(unexplored_paths[0])
+        queue.enqueue(unexplored_paths[0])
     # otherwise
     else:
         # call bft_find_other_room to find other unexplored rooms
-        unexplored_path = bft_find_other_room(player, roomQueue)
+        unexplored_path = bft_find_other_room(player)
 
         # if there are unexplored rooms
         if unexplored_path is not None:
@@ -85,10 +98,20 @@ def get_unexplored_room(player, roomQueue):
                 for exit in current_room:
                     # if path is in current room, enqueue it
                     if current_room[exit] == path:
-                        roomQueue.enqueue(exit)
+                        queue.enqueue(exit)
 
 
-def bft_find_other_room(player, roomQueue):
+def bft_find_other_room(player):
+    """Uses bft to find the path to the closest room with an unexplored
+    direction. When it finds one it returns the path. Returns None
+    when an unexplored direction can not be found
+
+    Arguments:
+        player {class} -- instance of the Player class
+
+    Returns:
+        list -- path to the room with an unexplored direction
+    """
     # create new room queue
     q = Queue()
     # hold the visited room
